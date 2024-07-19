@@ -5,18 +5,12 @@ function createStreamtime(apiKey, debug = false) {
 
 /**
  * Streamtime helper class.
- * 
+ *
  * Useful methods are generally useful for most cases. Described in this example.
- * 
+ *
  *   const token = "abcdefg...";
  *   let st = new Streamtime(token);
- * 
- *.  // A reasonably small result set.
  *   let activeJobs = st.fetchActiveJobs();
- * 
- *.  // We have a lot of archived jobs, so the parameter lets you get only recently touched ones. 
- *   let activeJobs = st.fetchArchivedJobs(30);
- *
  */
 class Streamtime {
 
@@ -59,7 +53,7 @@ class Streamtime {
 
   /**
    * Collection of methods that return valid Streamtime filters.
-   * 
+   *
    * conditionMatchTypeId
    *   https://documenter.getpostman.com/view/802974/RWgtSwbn#ec55ed64-1abf-4c14-8038-8d9bed3c8ced
    * filterGroupTypeId
@@ -215,7 +209,7 @@ class Streamtime {
             }
           ]
         };
-      },  
+      },
     };
   }
 
@@ -226,7 +220,7 @@ class Streamtime {
     this._log('Fetching users');
     return this._fetchGetResults(Streamtime.EndPoint.Users);
   }
-  
+
   /**
    * Get jobs that are not archived.
    */
@@ -237,9 +231,9 @@ class Streamtime {
 
   /**
    * Get time.
-   * 
+   *
    * Note that dates are not inclusive - streamtime offers greater/less than.
-   * 
+   *
    * @param fromDate
    *   in YYYY-MM-DD, eg Utilities.formatDate(dateStart, "GMT", "yyyy-MM-dd");
    * @param toDate
@@ -257,7 +251,7 @@ class Streamtime {
    * Get time from days ago.
    */
   fetchTimeSinceDEP(daysAgo = 5, ) {
-    
+
     return this._fetchAllResults(Streamtime.EndPoint.Time, [
       Streamtime.Condition.JobStatusAll(),
       Streamtime.Condition.TimeFromDaysAgo(daysAgo),
@@ -317,7 +311,7 @@ class Streamtime {
 
   /**
    * Get jobs that are archived limited to a number of days.
-   * 
+   *
    * @param sinceDaysAgo
    *   You probably don't want all jobs since forever.
    */
@@ -351,7 +345,7 @@ class Streamtime {
 
   /**
    * Get jobs that are archived limited to a number of days.
-   * 
+   *
    * @param sinceDaysAgo
    *   You probably don't want all jobs since forever.
    */
@@ -493,11 +487,11 @@ class Streamtime {
       Streamtime.Condition.JobArchivedFromDate(sinceDaysAgo),
       Streamtime.Condition.QuoteStatus(),
     ]);
-  }  
+  }
 
   /**
    * Loops until all pages are received. Returns an array of results.
-   * 
+   *
    * @param endPoint
    *   A streamtime endpoint @see Streamtime.Endpoint
    * @param conditions
@@ -528,10 +522,10 @@ class Streamtime {
       else {
         loadMore = false;
       }
-      page++; 
+      page++;
     }
     console.log('Fetched total: ' + results.length);
-    return results;    
+    return results;
   }
 
   /**
@@ -545,7 +539,7 @@ class Streamtime {
 
   /**
    * Make a single call to Streamtime.
-   * 
+   *
    * @param endPoint
    *   A streamtime endpoint @see Streamtime.Endpoint
    * @param conditions
@@ -579,9 +573,9 @@ class Streamtime {
 
       // Simple and-ing of additional conditions.
       if (conditions.length > 0) {
-        for (let i = 0; i < conditions.length; i++) {  
+        for (let i = 0; i < conditions.length; i++) {
           requestBody.filterGroups.push(conditions[i]);
-        }  
+        }
       }
       requestBody['offset'] = offset;
       httpOptions['payload'] = JSON.stringify(requestBody);
@@ -593,7 +587,7 @@ class Streamtime {
 
   /**
    * Get a Streamtime data parameter offset by days.
-   * 
+   *
    * @param daysOffset
    *   Forward or backwards using positive or negative.
    */
@@ -607,7 +601,7 @@ class Streamtime {
 
   /**
    * Same formats as Utilities.formatDate which is https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
-   * 
+   *
    * @param stDateString
    *   A date string in the format of YYYY-MM-DD (streamtime standard).
    */
